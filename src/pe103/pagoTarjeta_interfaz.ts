@@ -8,12 +8,3 @@ export interface PagoTarjeta {
   aplicarComision(precio: number):void;
   getPrecioFinal():number;
 }
-
-
-/* export abstract class Pago {
-  private precio_final: number;
-  constructor(private precio: number, private metodo: string) {
-  }
-
-protected abstract comision(): void;
-}*/
