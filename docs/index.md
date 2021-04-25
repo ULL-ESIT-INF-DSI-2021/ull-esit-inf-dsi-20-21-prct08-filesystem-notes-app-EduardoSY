@@ -18,6 +18,7 @@ Además de todo el código a desarrollar, también vamos a trabajar con Github A
 ## 2. Pasos previos <a name="previos"></a>
 Para la realización de esta práctica necesitaremos hacer uso de distintas COOSAAS
 Recordemos siempre instalar las cosas como dependencias de desarrollo. Para ello hacemos uso del flag `--save-dev`.
+
 Para poder aprovechar la **api síncrona de Node.JS para trabajar con ficheros** debemos instalar el siguiente paquete:
 ```bash
 npm install --save-dev @types/node
