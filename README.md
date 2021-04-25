@@ -1,5 +1,11 @@
-# [DSI] Práctica 8
+# [DSI] Práctica 8 - Aplicación de procesamiento de notas de texto
 # Contiene EJERCICIO PE-103 C+D
+
+**[Acceso a la Github Page](https://ull-esit-inf-dsi-2021.github.io/ull-esit-inf-dsi-20-21-prct08-filesystem-notes-app-EduardoSY/)**
+
+**[Acceso a la documentacion generada con Typedoc]()**
+
+***
 
 | **Ejercicio Practica 8 PE103** |
 | --- |
@@ -7,9 +13,7 @@
 | [Enlace fichero de pruebas TDD]() |
 | [Enlace documentacion generada]() |
 
-**[Acceso a la Github Page]()**
-
-**[Acceso a la documentacion generada con Typedoc]()**
+***
 
 * Universidad de La Laguna
 * Grado en Ingeniería Informática
