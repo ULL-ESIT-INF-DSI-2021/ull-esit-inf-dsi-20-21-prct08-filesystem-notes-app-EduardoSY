@@ -11,6 +11,13 @@ describe('Test userNoteOptions', () => {
     expect(fs.existsSync('db/Test/Nota_test.json')).true;
   });
 
+  /* it('Si la nota ya existe, al intentar crearla devuelve un error', () => {
+    expect(userOpt.addNote.bind(userOpt, 'Test', 'Nota_test',
+        'Esta es una nota de prueba',
+        'green')).to.throw(new Error('ERROR: Parece que ya existe'+
+    ' una nota con el mismo titulo'));
+  });*/
+
   it('Se puede modificar una nota', () => {
     userOpt.modifyNote('Test', 'Nota_test',
         'Esta es una nota de prueba modificada', 'blue');

@@ -5,7 +5,8 @@ import {Note} from '../../src/noteApp/note';
 
 describe('Test notas', () => {
   let nota1 = new Note('Nota de prueba', 'Esto es una nota de prueba', 'green');
-
+  let notafail = new Note('Nota de prueba fail', 'Esto es una nota de prueba',
+      'white');
   it('La nota es una intancia de la clase nota', () => {
     expect(nota1).to.be.instanceOf(Note);
   });
@@ -20,6 +21,10 @@ describe('Test notas', () => {
 
   it('El color de la nota es green', () => {
     expect(nota1.getColor()).to.be.eql('green');
+  });
+
+  it('Si el color no es valido se pode por defecto el rojo', () => {
+    expect(notafail.getColor()).to.be.eql('red');
   });
 
   it('El titulo de la nota se puede cambiar a << Pruebita >>', () => {

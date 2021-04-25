@@ -1,5 +1,8 @@
 
 export type colors = 'red'|'yellow'|'blue'|'green';
+import * as chalk from 'chalk';
+
+
 /**
  * Clase Note. Nos permite representar una nota.
  */
@@ -8,10 +11,25 @@ export class Note {
    * Constructor de la clase Note
    * @param title Titulo de la nota
    * @param body Texto que contiene la nota
-   * @param color Color de la nota
+   * @param color Color de la nota. En caso de que se ponga un valor distinto
+   * a los mencionados, ponemos el rojo.
    */
+  private color: string;
+  private possibleColors: string[] = ['red', 'yellow', 'blue', 'green'];
   constructor(private title: string, private body: string,
-    private color: colors) {}
+      colorsito: string) {
+    try {
+      if (!this.possibleColors.includes(colorsito)) {
+        this.color = 'red';
+        throw new Error('El color no era valido asi que'+
+        ' pondremos el rojo por defecto');
+      } else {
+        this.color = colorsito;
+      }
+    } catch (err) {
+      console.log(chalk.red(err.message));
+    }
+  }
 
   /**
    * Setter. Permite establecer titulo

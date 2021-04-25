@@ -48,8 +48,22 @@ Esta clase es la encargada de representar lo que es una nota.
 
 ```typescript
 export class Note {
+  private color: string;
+  private possibleColors: string[] = ['red', 'yellow', 'blue', 'green'];
   constructor(private title: string, private body: string,
-    private color: string) {}
+    private color: string) {
+    try {
+      if (!this.possibleColors.includes(colorsito)) {
+        this.color = 'red';
+        throw new Error('El color no era valido asi que'+
+        ' pondremos el rojo por defecto');
+      } else {
+        this.color = colorsito;
+      }
+    } catch (err) {
+      console.log(chalk.red(err.message));
+    }
+  }
 
   setTitle(title: string): void {
     this.title = title;
