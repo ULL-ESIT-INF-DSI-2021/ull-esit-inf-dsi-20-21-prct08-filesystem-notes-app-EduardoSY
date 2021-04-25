@@ -108,8 +108,6 @@ export class UserNoteOptions {
         const info = fs.readFileSync(`db/${usuario}/${titulo}.json`);
         const notaJson = JSON.parse(info.toString());
         const nota = new Note(notaJson.title, notaJson.body, notaJson.color);
-        // console.log(chalk.keyword(nota.getColor())(nota.getTitle()));
-        // console.log(chalk.keyword(nota.getColor())(nota.getBody()));
         return nota;
       } else {
         throw new Error('ERROR: Parece que esa nota no existe');

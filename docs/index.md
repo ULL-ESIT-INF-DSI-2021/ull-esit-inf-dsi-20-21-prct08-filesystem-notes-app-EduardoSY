@@ -116,37 +116,50 @@ export class UserNoteOptions {
 
   addNote(usuario: string, titulo: string, cuerpo: string,
       color: string): void {
-    if (fs.existsSync(`db/${usuario}`) == false) {
-      console.log('Creado fichero del usuario');
-      fs.mkdirSync(`db/${usuario}`, {recursive: true});
-    }
-    const nota = new Note(titulo, cuerpo, color);
-    if (fs.existsSync(`db/${usuario}/${titulo}.json`) == false) {
-      fs.writeFileSync(`db/${usuario}/${titulo}.json`, nota.noteToJSON());
-      console.log(chalk.green('Nota creada correctamente!'));
-    } else {
-      console.log(chalk.red('ERROR: Parece que ya existe'+
-          ' una nota con el mismo titulo'));
+    try {
+      // Si el directorio del usuario no existe se crea
+      if (fs.existsSync(`db/${usuario}`) == false) {
+        console.log('Creado fichero del usuario');
+        fs.mkdirSync(`db/${usuario}`, {recursive: true});
+      }
+      const nota = new Note(titulo, cuerpo, color as colors);
+      if (fs.existsSync(`db/${usuario}/${titulo}.json`) == false) {
+        fs.writeFileSync(`db/${usuario}/${titulo}.json`, nota.noteToJSON());
+        console.log(chalk.green('Nota creada correctamente!'));
+      } else {
+        throw new Error('ERROR: Parece que ya existe'+
+        ' una nota con el mismo titulo');
+      }
+    } catch (err) {
+      console.log(chalk.red(err.message));
     }
   }
 
   removeNote(usuario: string, titulo: string): void {
-    if (fs.existsSync(`db/${usuario}/${titulo}.json`) == true) {
-      fs.rmSync(`db/${usuario}/${titulo}.json`);
-      console.log(chalk.green('Nota eliminada correctamente!'));
-    } else {
-      console.log(chalk.red('ERROR: Parece que esa nota no existia'));
+    try {
+      if (fs.existsSync(`db/${usuario}/${titulo}.json`) == true) {
+        fs.rmSync(`db/${usuario}/${titulo}.json`);
+        console.log(chalk.green('Nota eliminada correctamente!'));
+      } else {
+        throw new Error('ERROR: Parece que esa nota no existia');
+      }
+    } catch (err) {
+      console.log(chalk.red(err.message));
     }
   }
 
   modifyNote(usuario: string, titulo: string, cuerpo: string,
       color: string): void {
-    if (fs.existsSync(`db/${usuario}/${titulo}.json`) == true) {
-      const nota = new Note(titulo, cuerpo, color);
-      fs.writeFileSync(`db/${usuario}/${titulo}.json`, nota.noteToJSON());
-      console.log(chalk.green('Nota modificada correctamente!'));
-    } else {
-      console.log(chalk.red('ERROR: Parece que esa nota no existia'));
+    try {
+      if (fs.existsSync(`db/${usuario}/${titulo}.json`) == true) {
+        const nota = new Note(titulo, cuerpo, color as colors);
+        fs.writeFileSync(`db/${usuario}/${titulo}.json`, nota.noteToJSON());
+        console.log(chalk.green('Nota modificada correctamente!'));
+      } else {
+        throw new Error('ERROR: Parece que esa nota no existe');
+      }
+    } catch (err) {
+      console.log(chalk.red(err.message));
     }
   }
 
@@ -163,14 +176,17 @@ export class UserNoteOptions {
   }
 
   readNote(usuario: string, titulo: string): void {
-    if (fs.existsSync(`db/${usuario}/${titulo}.json`) == true) {
-      const info = fs.readFileSync(`db/${usuario}/${titulo}.json`);
-      const notaJson = JSON.parse(info.toString());
-      const nota = new Note(notaJson.title, notaJson.body, notaJson.color);
-      console.log(chalk.keyword(nota.getColor())(nota.getTitle()));
-      console.log(chalk.keyword(nota.getColor())(nota.getBody()));
-    } else {
-      console.log(chalk.red('ERROR: Parece que esa nota no existia'));
+    try {
+      if (fs.existsSync(`db/${usuario}/${titulo}.json`) == true) {
+        const info = fs.readFileSync(`db/${usuario}/${titulo}.json`);
+        const notaJson = JSON.parse(info.toString());
+        const nota = new Note(notaJson.title, notaJson.body, notaJson.color);
+        return nota;
+      } else {
+        throw new Error('ERROR: Parece que esa nota no existe');
+      }
+    } catch (err) {
+      console.log(chalk.red(err.message));
     }
   }
 }
@@ -323,7 +339,11 @@ yargs.command({
   },
   handler(argv) {
     if (typeof argv.user === 'string' && typeof argv.title === 'string') {
-      noteOpt.readNote(argv.user, argv.title);
+      let nota = noteOpt.readNote(argv.user, argv.title);
+
+      if (nota instanceof Note) {
+        console.log(chalk.keyword(nota.getColor())(nota.getTitle()));
+        console.log(chalk.keyword(nota.getColor())(nota.getBody()));
     } else {
       console.log(chalk.red('ERROR: Argumentos no validos'));
     }
@@ -402,11 +422,140 @@ Este es **[el directorio con los tests del programa](https://github.com/ULL-ESIT
 
 ### Workflow con Github Actions e integración continua
 
-Para 
+Para realizar toda la integración con Github Actions se ha seguido los tutoriales proporcionador por el profesor.
+
+[CI de código Typescript ejecutado en Node.js (Solo alumnos ULL)](https://drive.google.com/file/d/1hwtPovQlGvthaE7e7yYshC4v8rOtLSw0/view)
+
+En este primer tutorial creamos la configuración para ejecutar el código y las pruebas en distintas versiones de Node.js y comprobar su correcto funcionamiento. Al finalizar el tutorial nos queda un fichero similar al siguiente:
+
+´´´
+name: Tests
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x, 15.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm install
+    - run: npm test
+´´´
+En este caso se ha eliminado el uso de las versiones 10.x y 12.x debido a que estas no funcionan correctamente con el paquete **fs**. Ciertas funciones como `mkdirSync`, entre otras, dan error puesto que no las reconoce.
+
+[Workflow GH Actions Coveralls (Solo alumnos ULL)](https://drive.google.com/file/d/1yOonmpVbOyvzx3ZbXMQTAPxvA3a7AE7w/view)
+
+Una vez finalizado el tutorial, en nuestro directorio `.github/workflows` tendremos nuestro fichero `coveralls.yml` que será similar a esto:
+
+```
+name: Coveralls
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  coveralls:
+
+    runs-on: ubuntu-latest
+
+
+    steps:
+    - name: Cloning repo
+      uses: actions/checkout@v2
+    - name: Use Node.js 15.x
+      uses: actions/setup-node@v2
+      with:
+        node-version: 15.x
+    - name: Installing dependencies
+      run: npm install
+    - name: Generating coverage info
+      run: npm run coverage
+    - name: Coveralls GH action 
+      uses: coverallsapp/github-action@master
+      with: 
+        github-token: ${{secrets.GITHUB_TOKEN}}
+```
+
+[Workflow GH Actions Sonar-Cloud (Solo alumnos ULL)](https://drive.google.com/file/d/1FLPargdPBX6JaJ_85jNsRzxe34sMi-Z3/view)
+
+Una vez finalizado este ultimo tutorial, en nuestro directorio `.github/workflows` tendremos nuestro fichero `coveralls.yml` que será similar a esto:
+
+```
+name: Sonar-Cloud
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+jobs:
+  sonarcloud:
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cloning repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Use Node.js 15.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 15.x   
+      - name: Installing dependencies
+        run: npm install
+      - name: Generate coverage info
+        run: npm run coverage
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+```
+
+Además, en nuestro directorio raiz hemos de haber creado un fichero denominado **sonar-project.propierties** que contiene lo siguiente:
+
+```
+sonar.projectKey=ULL-ESIT-INF-DSI-2021_ull-esit-inf-dsi-20-21-prct08-filesystem-notes-app-EduardoSY
+sonar.organization=ull-esit-inf-dsi-2021
+
+# This is the name and version displayed in the SonarCloud UI.
+sonar.projectName=ull-esit-inf-dsi-20-21-prct08-filesystem-notes-app-EduardoSY
+sonar.projectVersion=1.0
+
+# Path is relative to the sonar-project.properties file. Replace "\" by "/" on Windows.
+sonar.sources=src
+
+# Encoding of the source code. Default is default system encoding
+sonar.sourceEncoding=UTF-8
+
+# Coverage info
+sonar.javascript.lcov.reportPaths=coverage/lcov.info
+```
+
+Nótese que en el video tutorial hay una pequeña errata en esta última linea pues reportPaths debe llevar una s al final.
 
 ## 4. Dificultades y conclusión <a name="conclusion"></a>
 
 He tenido ciertos problemas a la hora de encontrar ejemplos claros sobre yargs, por ejemplo, a la hora de entender qué hacia cada una de las funciones que estaba poniendo. A la hora de tratar con los ficheros también tuve ciertos problemas al principio pero gracias a algunos posts en Stackoverflow pude dar con la solución.
+
+En cambio, el que más quebraderos de cabeza me dio fue a la hora de tratar el manejo de errores. Implementé un try-catch en la funciones para manejar los posibles errores, ya sea a la hora de tratar los ficheros, de valores incorrectos, etc. Cuando intenté hacer los tests no supe identificar como manejar esas situaciones de error y, por lo tanto, la puntuación de cubrimiento me estaba dando relativamente baja. Tras bastante rato opté por una solución un tanto chapuza aunque, para lo que necesitaba, funciona.
 
 Aunque en un principio la práctica me imponía un poco, no resultó ser tan dificil como pensé en un principio.
 Esta tarea que me ha gustado especialmente porque me hace sentir más cerca de un programa útil y real. Ha sido un buen ejercicio que me ha permitido disfrutar a la par que aprender.
@@ -416,3 +565,8 @@ Esta tarea que me ha gustado especialmente porque me hace sentir más cerca de u
 - [Apuntes sobre Node.js](https://ull-esit-inf-dsi-2021.github.io/nodejs-theory/): Apuntes de la asignatura sobre Node.JS
 - [Guía para crear un proyecto](https://ull-esit-inf-dsi-2021.github.io/typescript-theory/typescript-project-setup.html): Guía del profesor para crear un proyecto.
 - Diversos videotutoriales creados por el profesor de la asignatura donde explica cómo instalar diversos paquetes y configuraciones (Typedoc, Mocha, Chai, Instanbul, Workflow con Github Actions, etc.)
+- [Workflow GH Actions Sonar-Cloud (Solo alumnos ULL)](https://drive.google.com/file/d/1FLPargdPBX6JaJ_85jNsRzxe34sMi-Z3/view)
+- [Workflow GH Actions Coveralls (Solo alumnos ULL)](https://drive.google.com/file/d/1yOonmpVbOyvzx3ZbXMQTAPxvA3a7AE7w/view)
+- [CI de código Typescript ejecutado en Node.js (Solo alumnos ULL)](https://drive.google.com/file/d/1hwtPovQlGvthaE7e7yYshC4v8rOtLSw0/view)
+- [Yargs. Pagina oficial npm](https://www.npmjs.com/package/yargs)
+- [Chalk. Pagina oficial npm](https://www.npmjs.com/package/chalk)
