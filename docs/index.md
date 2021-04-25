@@ -392,6 +392,11 @@ Para
 
 ## 4. Dificultades y conclusión <a name="conclusion"></a>
 
+He tenido ciertos problemas a la hora de encontrar ejemplos claros sobre yargs, por ejemplo, a la hora de entender qué hacia cada una de las funciones que estaba poniendo. A la hora de tratar con los ficheros también tuve ciertos problemas al principio pero gracias a algunos posts en Stackoverflow pude dar con la solución.
+
+Aunque en un principio la práctica me imponía un poco, no resultó ser tan dificil como pensé en un principio.
+Esta tarea que me ha gustado especialmente porque me hace sentir más cerca de un programa útil y real. Ha sido un buen ejercicio que me ha permitido disfrutar a la par que aprender.
+
 ## 5. Referencias <a name="referencias"></a>
 - [Guión práctica 8](https://ull-esit-inf-dsi-2021.github.io/prct08-filesystem-notes-app/): Guión de la práctica .
 - [Apuntes sobre Node.js](https://ull-esit-inf-dsi-2021.github.io/nodejs-theory/): Apuntes de la asignatura sobre Node.JS
