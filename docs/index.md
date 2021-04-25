@@ -557,7 +557,7 @@ Nótese que en el video tutorial hay una pequeña errata en esta última linea p
 
 He tenido ciertos problemas a la hora de encontrar ejemplos claros sobre yargs, por ejemplo, a la hora de entender qué hacia cada una de las funciones que estaba poniendo. A la hora de tratar con los ficheros también tuve ciertos problemas al principio pero gracias a algunos posts en Stackoverflow pude dar con la solución.
 
-En cambio, el que más quebraderos de cabeza me dio fue a la hora de tratar el manejo de errores. Implementé un try-catch en la funciones para manejar los posibles errores, ya sea a la hora de tratar los ficheros, de valores incorrectos, etc. Cuando intenté hacer los tests no supe identificar como manejar esas situaciones de error y, por lo tanto, la puntuación de cubrimiento me estaba dando relativamente baja. Tras bastante rato opté por una solución un tanto chapuza aunque, para lo que necesitaba, funciona.
+En cambio, el que más quebraderos de cabeza me dio fue a la hora de tratar el manejo de errores. Implementé un try-catch en la funciones para manejar los posibles errores, ya sea a la hora de tratar los ficheros, de valores incorrectos, etc. Cuando intenté hacer los tests no supe identificar como manejar esas situaciones de error y, por lo tanto, la puntuación de cubrimiento me estaba dando relativamente baja. Tras bastante rato opté por una solución que, aunque no es la ideal, cumple el cometido que yo buscaba.
 
 Aunque en un principio la práctica me imponía un poco, no resultó ser tan dificil como pensé en un principio.
 Esta tarea que me ha gustado especialmente porque me hace sentir más cerca de un programa útil y real. Ha sido un buen ejercicio que me ha permitido disfrutar a la par que aprender.
