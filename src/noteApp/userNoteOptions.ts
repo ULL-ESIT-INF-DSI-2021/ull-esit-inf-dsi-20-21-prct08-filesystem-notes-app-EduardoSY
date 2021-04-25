@@ -2,12 +2,23 @@ import {Note} from './note';
 import * as fs from 'fs';
 import * as chalk from 'chalk';
 
-
+/**
+ * Clase UserNoteOptions.
+ * Define todas los métodos que tiene el usuario para interactuar
+ * con las notas.
+ */
 export class UserNoteOptions {
   constructor() {}
-
+  /**
+   * Crea una nueva nota
+   * @param usuario Usuario que crea la nota
+   * @param titulo Titulo de la nota
+   * @param cuerpo Texto de la nota
+   * @param color Color de la nota
+   */
   addNote(usuario: string, titulo: string, cuerpo: string,
       color: string): void {
+    // Si el directorio del usuario no existe se crea
     if (fs.existsSync(`db/${usuario}`) == false) {
       console.log('Creado fichero del usuario');
       fs.mkdirSync(`db/${usuario}`, {recursive: true});
@@ -22,6 +33,11 @@ export class UserNoteOptions {
     }
   }
 
+  /**
+   * Elimina una nota concreta
+   * @param usuario Usuario del que se eliminara la nota
+   * @param titulo Titulo de la nota a eliminar
+   */
   removeNote(usuario: string, titulo: string): void {
     if (fs.existsSync(`db/${usuario}/${titulo}.json`) == true) {
       fs.rmSync(`db/${usuario}/${titulo}.json`);
@@ -31,6 +47,13 @@ export class UserNoteOptions {
     }
   }
 
+  /**
+   * Modifica una nota existente
+   * @param usuario Usuario al que se modificara la nota
+   * @param titulo Titulo de la nota a modificar
+   * @param cuerpo Cuerpo de la nota modificado
+   * @param color Color modificado de la nota
+   */
   modifyNote(usuario: string, titulo: string, cuerpo: string,
       color: string): void {
     if (fs.existsSync(`db/${usuario}/${titulo}.json`) == true) {
@@ -42,7 +65,11 @@ export class UserNoteOptions {
     }
   }
 
-
+  /**
+   * Lista todas las notas que tiene un usuario
+   * @param usuario Usuario del que se listaran las notas
+   * @returns Lista con las notas del usuario
+   */
   listNotes(usuario: string): Note[] {
     let listNotes: Note[] = [];
     fs.readdirSync(`db/${usuario}`).forEach((notes) => {
@@ -54,6 +81,11 @@ export class UserNoteOptions {
     return listNotes;
   }
 
+  /**
+   * Lee una nota concreta
+   * @param usuario Usuario del que se leera la nota
+   * @param titulo Titulo de la nota a leer
+   */
   readNote(usuario: string, titulo: string): void {
     if (fs.existsSync(`db/${usuario}/${titulo}.json`) == true) {
       const info = fs.readFileSync(`db/${usuario}/${titulo}.json`);

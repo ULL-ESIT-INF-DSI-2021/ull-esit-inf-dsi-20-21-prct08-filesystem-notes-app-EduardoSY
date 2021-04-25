@@ -4,6 +4,10 @@ import {Note} from './note';
 import {UserNoteOptions} from './userNoteOptions';
 
 const noteOpt = new UserNoteOptions();
+
+/**
+ * Definicion del comando ADD
+ */
 yargs.command({
   command: 'add',
   describe: 'Add a new note',
@@ -39,6 +43,9 @@ yargs.command({
   },
 });
 
+/**
+ * Definicion del comando REMOVE
+ */
 yargs.command({
   command: 'remove',
   describe: 'Remove a note',
@@ -63,6 +70,9 @@ yargs.command({
   },
 });
 
+/**
+ * Definicion del comando MODIFY
+ */
 yargs.command({
   command: 'modify',
   describe: 'Modify a note',
@@ -98,6 +108,9 @@ yargs.command({
   },
 });
 
+/**
+ * Definicion del comando READ
+ */
 yargs.command({
   command: 'read',
   describe: 'Read a note',
@@ -122,6 +135,9 @@ yargs.command({
   },
 });
 
+/**
+ * Definicion del comando LIST
+ */
 yargs.command({
   command: 'list',
   describe: 'List all note',
@@ -144,6 +160,5 @@ yargs.command({
     }
   },
 });
-
 
 yargs.parse();
