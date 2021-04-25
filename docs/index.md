@@ -14,7 +14,7 @@ Esta octava práctica será la primera donde hagamos algo más cercano a lo que 
 Además de todo el código a desarrollar, también vamos a trabajar con Github Actions y la integración continua. Tendremos ejecución continua de código TS ejecutado en Node.js y configuracioń del flujo de trabajo para trabajar con Coveralls y SonarCloud.
 
 ## 2. Pasos previos <a name="previos"></a>
-Para la realización de esta práctica necesitaremos hacer uso de distintas COOSAAS
+Para la realización de esta práctica necesitaremos hacer uso de distintos paquetes que instalaremos a continuación.
 Recordemos siempre instalar las cosas como dependencias de desarrollo. Para ello hacemos uso del flag `--save-dev`.
 
 Para poder aprovechar la **api síncrona de Node.JS para trabajar con ficheros** debemos instalar el siguiente paquete:
@@ -414,6 +414,8 @@ A continuación manejamos los datos recibidos como parámetros. Comprobamos que 
 
 ### Ejemplo de ejecución
 
+![Ejemplo de ejecucion](noteApp.PNG)
+
 ### Tests
 
 En esta práctica, al igual que las anteriores, se ha seguido una metodología TDD. Por tanto, hemos ido creando los tests y posteriormente el código que así resuelve.
@@ -424,7 +426,7 @@ Este es **[el directorio con los tests del programa](https://github.com/ULL-ESIT
 
 Para realizar toda la integración con Github Actions se ha seguido los tutoriales proporcionador por el profesor.
 
-[CI de código Typescript ejecutado en Node.js (Solo alumnos ULL)](https://drive.google.com/file/d/1hwtPovQlGvthaE7e7yYshC4v8rOtLSw0/view)
+**[CI de código Typescript ejecutado en Node.js (Solo alumnos ULL)](https://drive.google.com/file/d/1hwtPovQlGvthaE7e7yYshC4v8rOtLSw0/view)**
 
 En este primer tutorial creamos la configuración para ejecutar el código y las pruebas en distintas versiones de Node.js y comprobar su correcto funcionamiento. Al finalizar el tutorial nos queda un fichero similar al siguiente:
 
@@ -458,7 +460,7 @@ jobs:
 ´´´
 En este caso se ha eliminado el uso de las versiones 10.x y 12.x debido a que estas no funcionan correctamente con el paquete **fs**. Ciertas funciones como `mkdirSync`, entre otras, dan error puesto que no las reconoce.
 
-[Workflow GH Actions Coveralls (Solo alumnos ULL)](https://drive.google.com/file/d/1yOonmpVbOyvzx3ZbXMQTAPxvA3a7AE7w/view)
+**[Workflow GH Actions Coveralls (Solo alumnos ULL)](https://drive.google.com/file/d/1yOonmpVbOyvzx3ZbXMQTAPxvA3a7AE7w/view)**
 
 Una vez finalizado el tutorial, en nuestro directorio `.github/workflows` tendremos nuestro fichero `coveralls.yml` que será similar a esto:
 
@@ -494,7 +496,7 @@ jobs:
         github-token: ${{secrets.GITHUB_TOKEN}}
 ```
 
-[Workflow GH Actions Sonar-Cloud (Solo alumnos ULL)](https://drive.google.com/file/d/1FLPargdPBX6JaJ_85jNsRzxe34sMi-Z3/view)
+**[Workflow GH Actions Sonar-Cloud (Solo alumnos ULL)](https://drive.google.com/file/d/1FLPargdPBX6JaJ_85jNsRzxe34sMi-Z3/view)**
 
 Una vez finalizado este ultimo tutorial, en nuestro directorio `.github/workflows` tendremos nuestro fichero `coveralls.yml` que será similar a esto:
 
