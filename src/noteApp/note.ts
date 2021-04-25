@@ -1,9 +1,20 @@
-// import * as fs from 'fs';
-
+/**
+ * Clase Note. Nos permite representar una nota.
+ */
 export class Note {
+  /**
+   * Constructor de la clase Note
+   * @param title Titulo de la nota
+   * @param body Texto que contiene la nota
+   * @param color Color de la nota
+   */
   constructor(private title: string, private body: string,
     private color: string) {}
 
+  /**
+   * Setter. Permite establecer titulo
+   * @param title Titulo de la nota.
+   */
   setTitle(title: string): void {
     this.title = title;
   }
