@@ -1,3 +1,5 @@
+
+export type colors = 'red'|'yellow'|'blue'|'green';
 /**
  * Clase Note. Nos permite representar una nota.
  */
@@ -9,7 +11,7 @@ export class Note {
    * @param color Color de la nota
    */
   constructor(private title: string, private body: string,
-    private color: string) {}
+    private color: colors) {}
 
   /**
    * Setter. Permite establecer titulo
@@ -22,7 +24,7 @@ export class Note {
    * Setter. Permite establecer color
    * @param color Color de la nota
    */
-  setColor(color: string): void {
+  setColor(color: colors): void {
     this.color = color;
   }
 

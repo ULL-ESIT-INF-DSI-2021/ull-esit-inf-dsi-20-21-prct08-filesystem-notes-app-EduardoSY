@@ -32,9 +32,18 @@ describe('Test userNoteOptions', () => {
     expect(userOpt.listNotes('Test')).to.be.eql([nota1, nota2]);
   });
 
+  it('Se puede leer una nota', () => {
+    let nota1 = new Note('Nota_test',
+        'Esta es una nota de prueba modificada', 'blue');
+    expect(userOpt.readNote('Test', 'Nota_test')).to.be.eql(nota1);
+  });
+
   it('Se puede eliminar una nota', () => {
     userOpt.removeNote('Test', 'Nota_test');
+    userOpt.removeNote('Test', 'Nota_test2');
+
     expect(fs.existsSync('db/Test/Nota_test.json')).false;
+    expect(fs.existsSync('db/Test/Nota_test2.json')).false;
   });
 });
 

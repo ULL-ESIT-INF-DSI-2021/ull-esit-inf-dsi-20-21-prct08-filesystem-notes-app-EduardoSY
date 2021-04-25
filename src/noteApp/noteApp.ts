@@ -1,6 +1,7 @@
 import * as chalk from 'chalk';
 import * as yargs from 'yargs';
 import {Note} from './note';
+
 import {UserNoteOptions} from './userNoteOptions';
 
 const noteOpt = new UserNoteOptions();
@@ -128,7 +129,12 @@ yargs.command({
   },
   handler(argv) {
     if (typeof argv.user === 'string' && typeof argv.title === 'string') {
-      noteOpt.readNote(argv.user, argv.title);
+      let nota = noteOpt.readNote(argv.user, argv.title);
+
+      if (nota instanceof Note) {
+        console.log(chalk.keyword(nota.getColor())(nota.getTitle()));
+        console.log(chalk.keyword(nota.getColor())(nota.getBody()));
+      }
     } else {
       console.log(chalk.red('ERROR: Argumentos no validos'));
     }

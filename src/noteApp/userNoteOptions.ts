@@ -1,4 +1,4 @@
-import {Note} from './note';
+import {colors, Note} from './note';
 import * as fs from 'fs';
 import * as chalk from 'chalk';
 
@@ -23,7 +23,7 @@ export class UserNoteOptions {
       console.log('Creado fichero del usuario');
       fs.mkdirSync(`db/${usuario}`, {recursive: true});
     }
-    const nota = new Note(titulo, cuerpo, color);
+    const nota = new Note(titulo, cuerpo, color as colors);
     if (fs.existsSync(`db/${usuario}/${titulo}.json`) == false) {
       fs.writeFileSync(`db/${usuario}/${titulo}.json`, nota.noteToJSON());
       console.log(chalk.green('Nota creada correctamente!'));
@@ -57,7 +57,7 @@ export class UserNoteOptions {
   modifyNote(usuario: string, titulo: string, cuerpo: string,
       color: string): void {
     if (fs.existsSync(`db/${usuario}/${titulo}.json`) == true) {
-      const nota = new Note(titulo, cuerpo, color);
+      const nota = new Note(titulo, cuerpo, color as colors);
       fs.writeFileSync(`db/${usuario}/${titulo}.json`, nota.noteToJSON());
       console.log(chalk.green('Nota modificada correctamente!'));
     } else {
@@ -86,13 +86,14 @@ export class UserNoteOptions {
    * @param usuario Usuario del que se leera la nota
    * @param titulo Titulo de la nota a leer
    */
-  readNote(usuario: string, titulo: string): void {
+  readNote(usuario: string, titulo: string): Note|void {
     if (fs.existsSync(`db/${usuario}/${titulo}.json`) == true) {
       const info = fs.readFileSync(`db/${usuario}/${titulo}.json`);
       const notaJson = JSON.parse(info.toString());
       const nota = new Note(notaJson.title, notaJson.body, notaJson.color);
-      console.log(chalk.keyword(nota.getColor())(nota.getTitle()));
-      console.log(chalk.keyword(nota.getColor())(nota.getBody()));
+      // console.log(chalk.keyword(nota.getColor())(nota.getTitle()));
+      // console.log(chalk.keyword(nota.getColor())(nota.getBody()));
+      return nota;
     } else {
       console.log(chalk.red('ERROR: Parece que esa nota no existia'));
     }
