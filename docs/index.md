@@ -202,7 +202,7 @@ Lo primero que hacemos es analizar si existe el directorio correspondiente al us
 
 Lo primero que hacemos es comprobar si la nota que queremos eliminar existe. Si es así, gracias a la función de la api de Node.js, `rmSync`, podemos eliminar el fichero. En caso de que no exista mostramos un mensaje de error por la consola.
 
-**`modifyNote(usuario: string, titulo: string, cuerpo: string, color: string)`** es la función que nos permite modificar nuestras notas. La implementación es muy similar a la de la función **add**. En este caso, lo que hacemos es sobreescribir la nota con los nuevos datos de tal manera que, si la nota ya existia, la modificamos y, en caso de no existir, se crea.
+**`modifyNote(usuario: string, titulo: string, cuerpo: string, color: string)`** es la función que nos permite modificar nuestras notas. La implementación es muy similar a la de la función **add**. En este caso, lo que hacemos es sobreescribir la nota con los nuevos datos de tal manera que, si la nota ya existia, la modificamos y, en caso de no existir, se envia un mensaje de error.
 
 **`listNotes(usuario: string): Note[]`** nos permite listar todas las notas de un usuario.
 
