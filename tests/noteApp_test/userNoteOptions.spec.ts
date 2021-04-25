@@ -11,12 +11,11 @@ describe('Test userNoteOptions', () => {
     expect(fs.existsSync('db/Test/Nota_test.json')).true;
   });
 
-  /* it('Si la nota ya existe, al intentar crearla devuelve un error', () => {
-    expect(userOpt.addNote.bind(userOpt, 'Test', 'Nota_test',
+  it('Si la nota ya existe, al intentar crearla devuelve un error', () => {
+    expect(userOpt.addNote('Test', 'Nota_test',
         'Esta es una nota de prueba',
-        'green')).to.throw(new Error('ERROR: Parece que ya existe'+
-    ' una nota con el mismo titulo'));
-  });*/
+        'green')).to.be.undefined;
+  });
 
   it('Se puede modificar una nota', () => {
     userOpt.modifyNote('Test', 'Nota_test',
@@ -51,6 +50,19 @@ describe('Test userNoteOptions', () => {
 
     expect(fs.existsSync('db/Test/Nota_test.json')).false;
     expect(fs.existsSync('db/Test/Nota_test2.json')).false;
+  });
+
+  it('Si la nota no existe, al intentar modificarla devuelve un error', () => {
+    expect(userOpt.modifyNote('Test', 'Nota_test',
+        'Esta es una nota de prueba modificada', 'blue')).to.be.undefined;
+  });
+
+  it('Si la nota no existe, al intentar leerla devuelve un error', () => {
+    expect(userOpt.readNote('Test', 'Nota_test')).to.be.undefined;
+  });
+
+  it('Si la nota no existe, al intentar borrarla devuelve un error', () => {
+    expect(userOpt.removeNote('Test', 'Nota_test2')).to.be.undefined;
   });
 });
 

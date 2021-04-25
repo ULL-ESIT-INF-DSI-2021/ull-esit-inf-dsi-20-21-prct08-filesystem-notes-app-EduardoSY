@@ -73,7 +73,7 @@ export class UserNoteOptions {
         fs.writeFileSync(`db/${usuario}/${titulo}.json`, nota.noteToJSON());
         console.log(chalk.green('Nota modificada correctamente!'));
       } else {
-        throw new Error('ERROR: Parece que esa nota no existia');
+        throw new Error('ERROR: Parece que esa nota no existe');
         // console.log(chalk.red('ERROR: Parece que esa nota no existia'));
       }
     } catch (err) {
@@ -112,7 +112,7 @@ export class UserNoteOptions {
         // console.log(chalk.keyword(nota.getColor())(nota.getBody()));
         return nota;
       } else {
-        throw new Error('ERROR: Parece que esa nota no existia');
+        throw new Error('ERROR: Parece que esa nota no existe');
         // console.log(chalk.red('ERROR: Parece que esa nota no existia'));
       }
     } catch (err) {
