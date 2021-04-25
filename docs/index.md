@@ -162,6 +162,14 @@ En primer lugar importamos todo aquello externo que vamos a necesitar. En nuestr
 
 Lo primero que hacemos es analizar si existe el directorio correspondiente al usuario. En caso negativo, creamos dicho directorio. A continuación se analiza si existe un fichero .json con el mismo nombre que la nota que vamos a crear. En caso afirmativo mostramos por consola un mensaje de error. En caso contrario, creamos dicho directorio gracias a la función `writeFileSync`, que recibe tanto la ruta como el contenido del fichero, es decir la nota en formato json.
 
+**`removeNote(usuario: string, titulo: string)`** nos permite eliminar una nota existente. 
+
+Lo primero que hacemos es comprobar si la nota que queremos eliminar existe. Si es así, gracias a la función de la api de Node.js, `rmSync`, podemos eliminar el fichero. En caso de que no exista mostramos un mensaje de error por la consola.
+
+**`modifyNote(usuario: string, titulo: string, cuerpo: string, color: string)`** es la función que nos permite modificar nuestras notas. La implementación es muy similar a la de la función **add**. En este caso, lo que hacemos es sobreescribir la nota con los nuevos datos de tal manera que, si la nota ya existia, la modificamos y, en caso de no existir, se crea.
+
+**`listNotes(usuario: string): Note[]`** nos permite listar todas las notas de un usuario.
+
 ### Clase noteApp
 
 Lorem ipsum y esas cosas
