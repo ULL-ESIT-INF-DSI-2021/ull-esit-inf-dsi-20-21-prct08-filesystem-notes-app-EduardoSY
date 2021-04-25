@@ -34,6 +34,62 @@ npm install --save-dev yargs @types/yargs
 
 ## 3. Desarrollo de los ejercicios <a name="desarrollo"></a>
 
+Para llevar a cabo esta práctica he creado diversas clases.
+
+### Clase Note
+
+Esta clase es la encargada de representar lo que es una nota.  
+
+```typescript
+export class Note {
+  constructor(private title: string, private body: string,
+    private color: string) {}
+
+  setTitle(title: string): void {
+    this.title = title;
+  }
+
+  setColor(color: string): void {
+    this.color = color;
+  }
+
+  setBody(body: string): void {
+    this.body = body;
+  }
+
+  getTitle():string {
+    return this.title;
+  }
+
+  getColor():string {
+    return this.color;
+  }
+
+  getBody():string {
+    return this.body;
+  }
+
+  noteToJSON():string {
+    return '{\n\"title\": \"' + this.title + '\",\n\"body\": \"'+ this.body +
+    '\",\n\"color\": \"' + this.color + '\"\n}';
+  }
+}
+```
+Una nota está compuesta por un **título**, un **cuerpo**, es decir, un mensaje y por un **color**. 
+
+Para poder acceder a todos estos atributos tenemos sus correspondientes **getters** así como sus **setters**, en caso de que querramos modificar alguno de estos.
+
+Finalmente tenemos la función `noteToJSON()`. El objetivo de esta es transformar la nota a formato JSON de tal manera que lo podemos almacenar en un fichero y poder manipularla correctamente.
+
+### Clase userNoteOptions
+
+Lorem ipsim
+
+
+### Clase noteApp
+
+Lorem ipsum y esas cosas
+
 ## 4. Dificultades y conclusión <a name="conclusion"></a>
 
 ## 5. Referencias <a name="referencias"></a>
