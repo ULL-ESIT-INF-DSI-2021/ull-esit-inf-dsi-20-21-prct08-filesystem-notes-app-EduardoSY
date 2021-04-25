@@ -430,7 +430,7 @@ Para realizar toda la integración con Github Actions se ha seguido los tutorial
 
 En este primer tutorial creamos la configuración para ejecutar el código y las pruebas en distintas versiones de Node.js y comprobar su correcto funcionamiento. Al finalizar el tutorial nos queda un fichero similar al siguiente:
 
-´´´
+```
 name: Tests
 
 on:
@@ -457,7 +457,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
     - run: npm test
-´´´
+```
 En este caso se ha eliminado el uso de las versiones 10.x y 12.x debido a que estas no funcionan correctamente con el paquete **fs**. Ciertas funciones como `mkdirSync`, entre otras, dan error puesto que no las reconoce.
 
 **[Workflow GH Actions Coveralls (Solo alumnos ULL)](https://drive.google.com/file/d/1yOonmpVbOyvzx3ZbXMQTAPxvA3a7AE7w/view)**
