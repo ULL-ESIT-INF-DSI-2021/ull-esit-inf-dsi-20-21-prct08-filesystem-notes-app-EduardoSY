@@ -5,8 +5,6 @@
 - [1. Introduccion](#introduccion)
 - [2. Pasos previos](#previos)
 - [3. Desarrollo de los ejercicios](#desarrollo)
-
-  - [3.4 Cubrimiento del codigo](#cubrimiento)
 - [4. Dificultades y conclusion](#conclusion)
 - [5. Referencias](#referencias)
 
@@ -33,6 +31,14 @@ npm install --save-dev yargs @types/yargs
 ```
 
 ## 3. Desarrollo de los ejercicios <a name="desarrollo"></a>
+
+- **[Enlace al código fuente](https://github.com/ULL-ESIT-INF-DSI-2021/ull-esit-inf-dsi-20-21-prct08-filesystem-notes-app-EduardoSY/tree/master/src/noteApp)**
+
+- **[Enlace a los tests](https://github.com/ULL-ESIT-INF-DSI-2021/ull-esit-inf-dsi-20-21-prct08-filesystem-notes-app-EduardoSY/tree/master/tests/noteApp_test)**
+
+- **[Enlace a la documentación generada](https://github.com/ULL-ESIT-INF-DSI-2021/ull-esit-inf-dsi-20-21-prct08-filesystem-notes-app-EduardoSY/blob/master/docs/docum/index.html)**
+
+
 
 Para llevar a cabo esta práctica he creado diversas clases.
 
@@ -372,6 +378,8 @@ En caso de que falte alguno de estos argumentos el propio yargs implementa una e
 
 A continuación manejamos los datos recibidos como parámetros. Comprobamos que todos sean del tipo que queremos. Si son string, llamamos a la función de añadir nota. En caso de que no sea así, mostramos un error por consola.
 
+### Ejemplo de ejecución
+
 ### Tests
 
 En esta práctica, al igual que las anteriores, se ha seguido una metodología TDD. Por tanto, hemos ido creando los tests y posteriormente el código que así resuelve.
@@ -379,6 +387,8 @@ En esta práctica, al igual que las anteriores, se ha seguido una metodología T
 Este es **[el directorio con los tests del programa](https://github.com/ULL-ESIT-INF-DSI-2021/ull-esit-inf-dsi-20-21-prct08-filesystem-notes-app-EduardoSY/tree/master/tests/noteApp_test)**
 
 ### Workflow con Github Actions e integración continua
+
+Para 
 
 ## 4. Dificultades y conclusión <a name="conclusion"></a>
 
